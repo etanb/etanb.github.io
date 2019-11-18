@@ -6,7 +6,7 @@
   <title>Etan Berkowitz</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+  <link rel="stylesheet" src="/assets/lib/normalize.css" />
   <script src="/assets/lib/svg-inject.js"></script>
 </head>
 
@@ -14,7 +14,7 @@
   <div data-id="sry-not-for-mobile" class="sry-not-for-mobile">
     <img class="sry-not-for-mobile__icon" data-id="sry-not-for-mobile__icon" src="/assets/coding.svg" onload="SVGInject(this)" />
     <div class="sry-not-for-mobile__content-container">
-        <p class="sry-not-for-mobile__text" data-id="sry-not-for-mobile__text">This site is not for mobile</p>
+        <p class="sry-not-for-mobile__text" data-id="sry-not-for-mobile__text">This site is not optimized for mobile</p>
         <div class="sry-not-for-mobile__button" data-id="sry-not-for-mobile__button">
           Let me in.
         </div>
@@ -29,7 +29,7 @@
     </div>
     <div class="introduction-body">
       <p class="introduction-body--text">
-        This is my website. I'm here to share some of the stuff I work on and make, sometimes by myself and sometimes with people. If you think this is a flex; thanks for the compliment. If you think this stuff is trash; I'm always trying to get better.
+        This is my website. I'm here to share some of the stuff I work on and make, sometimes by myself and sometimes with people. If you think this is a flex; thanks for the compliment. If you think this stuff is trash; I'm always trying to improve.
       </p>
     </div>
   </section>
@@ -67,7 +67,7 @@
     <div class="content-piece" data-id="mom-and-pops" data-filter="coding">
       <div class="content-piece-portfolio-item" data-id="show-me-content">
         <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
-          Plaid Work
+          Plaid.com
         </p>
         <img src="/assets/coding.svg" onload="SVGInject(this)" />
       </div>
@@ -75,12 +75,14 @@
         <line x1="0" y1="0" x2="100%" y2="0" />
       </svg>
       <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
-        <img class="content-piece-portfolio--visual" src="https://via.placeholder.com/300" />
+        <img class="content-piece-portfolio--visual" src="/assets/images/plaid.gif" />
         <p class="content-piece-portfolio--textual">
-          Coding. This is my website. I'm here to share some of the stuff I work on and make, sometimes by myself and sometimes with people. If you think this is a flex; thanks for the compliment. If you think this stuff is trash; I'm always trying to get better.
+          When I first joined Plaid, I was handed plaid.com, our main marketing web presence. It should’ve been a simple static-site generator, but the code hadn’t been updated in quite some time. Quite a few required packages had reached end-of-life and we’re not maintained. It was time for an upgrade. This coincided perfectly with our rebrand — we were completely re-thinking how Plaid looked / felt to our users. Working heavily with the design team, we created a component library for re-use across the site. The stack we used was a combination of Zurb Foundation, handlebars, gulp (for the build system), SASS, and jQuery. Nothing too new here, but this highly maintained stack of technologies helped us bring this brand spankin’ new Plaid look into reality. I’ve helped shape and refine what our stack can do over time adding graphical diffing, per-commit staging builds in GitHub, geo-specific page redirects in AWS and overall page optimization (lazy loading, responsive image loading) for quicker load times.
+
         </p>
       </div>
     </div>
+
     <div class="content-piece" data-id="mom-and-pops" data-filter="music">
       <div class="content-piece-portfolio-item" data-id="show-me-content">
         <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
@@ -92,43 +94,236 @@
         <line x1="0" y1="0" x2="100%" y2="0" />
       </svg>
       <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
-        <img class="content-piece-portfolio--visual" src="https://via.placeholder.com/300" />
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/822198125&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
         <p class="content-piece-portfolio--textual">
-          Music. This is my website. I'm here to share some of the stuff I work on and make, sometimes by myself and sometimes with people. If you think this is a flex; thanks for the compliment. If you think this stuff is trash; I'm always trying to get better.
+          Prism King is an aspirational psych rock band with mostly indie rock elements. We’ve been together for a couple of years and came together over shared love of bands like Tame Impala, King Gizzard and the Wizard Lizard and Radiohead. We’re a Bay Area based band that have gigged at places like Bottom of the Hill, Milk Bar and Brick and Mortar. We don’t have a single member of the band write the song end to end, but we take snippets of jams we like, extend them together, and write our own parts. The process takes longer than some other writing methods, but gives all the band members a chance to have their say and a piece of themselves on every song.
         </p>
       </div>
     </div>
+
     <div class="content-piece" data-id="mom-and-pops" data-filter="photos">
       <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Esalen
+        </p>
         <img src="/assets/photos.svg" onload="SVGInject(this)" />
       </div>
       <svg class="content-piece-canvas" data-id="show-me-content">
         <line x1="0" y1="0" x2="100%" y2="0" />
       </svg>
       <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
-        <img class="content-piece-portfolio--visual" src="https://via.placeholder.com/300" />
+        <img class="content-piece-portfolio--visual" src="/assets/images/esalen.gif" />
         <p class="content-piece-portfolio--textual">
-          Photos. This is my website. I'm here to share some of the stuff I work on and make, sometimes by myself and sometimes with people. If you think this is a flex; thanks for the compliment. If you think this stuff is trash; I'm always trying to get better.
+          Esalen is one of the most gorgeous places on earth. I was supposed to get LASIK but chickened out at the last minute. Since I had already taken the time off work, I looked for mini-vacation for myself and found that Esalen was having a creative writing workshop, so I joined. A mostly entirely self-sustaining resort, Esalen has a huge farm with a variety of fruits and vegetables, more herbs than I could count, and tons of locally sourced honey and dairy. The surrounding area of Big Sur has amazing bluff-side views and Esalen made great use of the area to offer lots of meditative spaces. The jewels of Esalen are their hot springs but cameras aren’t allowed there for obvious reasons.
         </p>
       </div>
     </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="coding">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Blog.plaid.com + Fin.plaid.com
+        </p>
+        <img src="/assets/coding.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <img class="content-piece-portfolio--visual" src="/assets/images/blogs.gif" />
+        <p class="content-piece-portfolio--textual">
+          Plaid’s first blog was a simple Ruby app that consumed markdown files and spit out static HTML. This was obviously before we had a large marketing team since we were writing about 1 post a month. At best. However, this was unsustainable as our marketing, and other, teams were growing so fast and having me, a simple developer, translate and edit blog posts from text into markdown was slow. Also, waking up in the morning to have JIRA tickets to remove “the” or add a link into a simple text blog post was a little demoralizing. I got sprint time to translate our blog into a true CMS. After taking to potential stakeholders, the requirements were pretty simple: they needed a WYSIWYG editor, ability to upload images / materials to our own servers, multiple authors, tags, and ability to edit how posts appear in social links. We ended up using Ghost CMS for our use-case as it was very well supported and was Javascript top to bottom, like many of our other repos. For the theme itself, we used a Docker environment to help setup the configuration and integration of the theme into the Ghost stack, and then SASS, handlebars and jQuery for the front-end portions.
+
+        </p>
+      </div>
+    </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="music">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Dota and 40s
+        </p>
+        <img src="/assets/music.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/714379756&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+        <p class="content-piece-portfolio--textual">
+          Guitar-focused instrumentals that rock are my most frequently listened to work music on Soundcloud. People like .saib are an inspiration to me. This track is guitar focused in that it has 4 distinct guitar tones and riffs throughout the song. I also collaborated with Peter Clark on drums to give the instrumental track a lot of rhythmic depth. The final piece of the song is inspired by the slow, dark, swampy jams of one of my favorite bands, Black Moth Super Rainbow. 
+        </p>
+      </div>
+    </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="coding">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          My.plaid.com
+        </p>
+        <img src="/assets/coding.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <img class="content-piece-portfolio--visual" src="/assets/images/blogs.gif" />
+        <p class="content-piece-portfolio--textual">
+          Currently, I’m on the consumer team at Plaid. We’re working on my.plaid.com which enables end-user (ie: you) to see what applications are using your information. This is one of the main reasons I joined Plaid, to enable and empower end-users, not businesses or banks, to utilize their own financial information. This app is using the latest-and-greatest Create React App with integration with Storybook + Happo for visual regression testing. We’re using SASS, React (duh), Typescript and a ton of smaller packages.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="music">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Two for One
+        </p>
+        <img src="/assets/music.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/714333184&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+        <p class="content-piece-portfolio--textual">
+          After hearing the band SALES for the first time I had two thoughts: A) I like this. B) I can make this. With my friend Rachel Schmitz on vocals, I created a very simple simulacra of what I think every SALES song has: simple beats, airy and plucked guitar, clean tones, and of course, ethereal female vocals.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="coding">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Reddit Extension
+        </p>
+        <img src="/assets/coding.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <img class="content-piece-portfolio--visual" src="/assets/images/redditExtension.gif" />
+        <p class="content-piece-portfolio--textual">
+          Reddit, and most online communities, have the same interface where comments are risen to the top or buried based upon how many people voted them up or down. Something that really bothered me about Reddit was that comments with lots of “points” were considered unequivocally more “right” even though we know nothing about the comment poster. I made a Chrome extension that adds an icon next to each comment poster’s name and shows you a small display of a user’s most frequently commented in subreddits so you could quickly gain context on where that comment poster’s opinion comes from. Unfortunately, Reddit removed the public API endpoint that allowed a developer to see a user’s upvotes / downvotes which would have made for much more exciting and granular data. The data can be shown in a doughnut chart, pie chart, bar chart or word cloud.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="coding">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Astral
+        </p>
+        <img src="/assets/coding.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <img class="content-piece-portfolio--visual" src="/assets/images/AstralApp.png" />
+        <p class="content-piece-portfolio--textual">
+          Astral was a former (RIP) hosted Stellar Wallet. I helped create the front-end for the app. We had a simple landing page that showed why our wallet was one of the safest out there as well as a status bar at the top. Within the app, the interactions were simple. You could send and receive stellar as well as see a list of all transactions and their statuses. The site was completely responsive. 
+        </p>
+      </div>
+    </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="photos">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          The East Coast
+        </p>
+        <img src="/assets/photos.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <img class="content-piece-portfolio--visual" src="/assets/images/ec.gif" />
+        <p class="content-piece-portfolio--textual">
+          During the summer of 2019, I took an incredible week-long road trip across the East Coast, from Niagra Falls, NY to Acadia, MA. There’s nothing like the North East in summer time. Constant warm ocean views, an unending amount of fresh crab and so much thriving nature you could shake multiple sticks at.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="coding">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Salesforce Snap-Ins
+        </p>
+        <img src="/assets/coding.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <img class="content-piece-portfolio--visual" src="/assets/images/SFDC.gif" />
+        <p class="content-piece-portfolio--textual">
+          My first job after General Assembly’s WDI coding bootcamp was at Salesforce. I was a “technical consultant” for the Desk.com team, working with clients to re-skin their Desk.com support centers to look / feel like they wanted. I eventually switched teams internally and joined the “Snap Ins” team as a UI developer. We created a product from the ground up for Salesforce which was a chat app built around Liveagent. We used Salesforce's own front-end framework called Aura to do all the interactions and state management. 
+        </p>
+      </div>
+    </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="music">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Dota and 40s
+        </p>
+        <img src="/assets/music.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/714379756&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+        <p class="content-piece-portfolio--textual">
+          Guitar-focused instrumentals that rock are my most frequently listened to work music on Soundcloud. People like .saib are an inspiration to me. This track is guitar focused in that it has 4 distinct guitar tones and riffs throughout the song. I also collaborated with Peter Clark on drums to give the instrumental track a lot of rhythmic depth. The final piece of the song is inspired by the slow, dark, swampy jams of one of my favorite bands, Black Moth Super Rainbow. 
+        </p>
+      </div>
+    </div>
+
+    <div class="content-piece" data-id="mom-and-pops" data-filter="photos">
+      <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Salt Lake City
+        </p>
+        <img src="/assets/photos.svg" onload="SVGInject(this)" />
+      </div>
+      <svg class="content-piece-canvas" data-id="show-me-content">
+        <line x1="0" y1="0" x2="100%" y2="0" />
+      </svg>
+      <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
+        <img class="content-piece-portfolio--visual" src="/assets/images/slc.gif" />
+        <p class="content-piece-portfolio--textual">
+          Imagine you could rent a really cheap Chevy Malibu. Imagine you had a single roll of film. Imagine...it’s really cold. Well this is my first and only trip to Salt Lake City. Long stretches of perfectly paved, snowy roads that stretch into mountain ranges. Salt flats that are completely unoccupied…except one photo where a recently wed couple were taking photos. Huge water views and vistas from Antelope Island. Winter wonderland photos from a solo snow shoeing trek. Even the Neon Dragon from neighboring Ogden.
+        </p>
+      </div>
+    </div>
+
+    
+
+    
+
     <div class="content-piece" data-id="mom-and-pops" data-filter="other">
       <div class="content-piece-portfolio-item" data-id="show-me-content">
+        <p class="content-piece-portfolio-item--title" data-id="portfolio-item-title">
+          Mama Bird
+        </p>
         <img src="/assets/other.svg" onload="SVGInject(this)" />
       </div>
       <svg class="content-piece-canvas" data-id="show-me-content">
         <line x1="0" y1="0" x2="100%" y2="0" />
       </svg>
       <div class="content-piece-portfolio" data-state="contracted" data-id="content-piece-portfolio">
-        <img class="content-piece-portfolio--visual" src="https://via.placeholder.com/300" />
+        <img class="content-piece-portfolio--visual" src="/assets/images/mama.gif" />
         <p class="content-piece-portfolio--textual">
-          Other. This is my website. I'm here to share some of the stuff I work on and make, sometimes by myself and sometimes with people. If you think this is a flex; thanks for the compliment. If you think this stuff is trash; I'm always trying to get better.
+          The perfect startup pitch. That’s what this sketch is about. I wrote this sketch with two friends from improv class. We enlisted a slew of friends who helped act, film and produce. The theme is “on demand food” and the dangers of things becoming too convenient. We’re still in the works on this so stay tuned.
         </p>
       </div>
     </div>
   </section>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="bundle.js?6850e85c826fd73b9899"></script></body>
+  <script src="/assets/lib/jquery.js"></script>
+<script type="text/javascript" src="bundle.js?6eef67206493b91affdd"></script></body>
 
 </html>
