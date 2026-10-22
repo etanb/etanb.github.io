@@ -1,0 +1,231 @@
+:root {
+  --bg: #F2CEE6;
+  --pink: #F486D0;
+  --yellow: #F9ED84;
+  --blue: #2DC7FF;
+  --ink: #0D1B1E;
+  --cur-arrow: url(assets/cursors/default.png) 1 1, auto;
+  --cur-hand: url(assets/cursors/pointer.png) 7 1, pointer;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* page: background tint, pattern and cursor change per word (set from main.js) */
+#root {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  background-image: radial-gradient(#E8B6D5 2px, transparent 2.6px);
+  background-size: 24px 24px;
+  transition: background-color .6s ease;
+  font-family: 'Libre Franklin', sans-serif;
+  color: var(--ink);
+  cursor: var(--cur-arrow);
+}
+
+/* ---- header: chase bulbs, ticker, coin counter ---- */
+.bar {
+  position: relative; z-index: 30; flex: none;
+  height: 38px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 10px 0 14px;
+  background: var(--ink); color: var(--yellow);
+  box-shadow: 0 4px 0 var(--pink);
+}
+.bulbs { flex: none; display: flex; gap: 7px; }
+.bulbs span { display: block; width: 10px; height: 10px; border-radius: 50%; background: var(--yellow); opacity: .25; }
+.ticker {
+  flex: 1; min-width: 0; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+}
+.ticker-track {
+  display: flex; width: max-content; white-space: nowrap;
+  font-weight: 900; font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+}
+.ticker-track span { padding-right: 36px; }
+.coins {
+  flex: none; display: flex; align-items: center; gap: 8px;
+  font-weight: 900; font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+}
+.coin-box {
+  display: block; background: var(--yellow); color: var(--ink);
+  font-size: 15px; letter-spacing: .06em; padding: 3px 8px;
+  font-variant-numeric: tabular-nums; border-radius: 3px;
+}
+
+/* ---- stage ---- */
+.stage {
+  position: relative; z-index: 2; flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(28px, 5vh, 56px) clamp(14px, 4vw, 56px) clamp(36px, 6vh, 64px);
+}
+.stack {
+  width: min(100%, 1040px);
+  display: flex; flex-direction: column; align-items: center;
+  gap: clamp(18px, 4vh, 40px);
+}
+
+.name { margin: 0; width: min(100%, 600px, 56vh); }
+.name-btn { all: unset; display: block; width: 100%; cursor: var(--cur-hand); }
+.name-btn:focus-visible { outline: 4px solid var(--ink); outline-offset: 8px; }
+.name-host { display: block; width: 100%; aspect-ratio: 2.75 / 1; }
+
+/* ---- cabinet ---- */
+.cabinet {
+  width: 100%; position: relative;
+  background: var(--ink); border: 4px solid var(--ink);
+  box-shadow: 12px 12px 0 var(--pink);
+  transition: box-shadow .4s;
+  padding: clamp(14px, 2.6vw, 32px);
+  display: flex; gap: clamp(12px, 2.4vw, 28px);
+  transform: rotate(-1deg);
+}
+.cab-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: clamp(10px, 2vh, 16px); }
+.into { margin: 0; color: var(--pink); font-weight: 800; font-size: clamp(18px, 2.6vw, 28px); letter-spacing: .01em; }
+
+.reel {
+  all: unset;
+  display: block; position: relative;
+  height: clamp(110px, min(17vw, 24vh), 200px);
+  background: var(--ink); border: 3px solid var(--yellow); color: var(--yellow);
+  font-family: 'Libre Franklin', sans-serif; font-weight: 900; letter-spacing: -.01em;
+  cursor: var(--cur-hand);
+  transition: color .15s;
+}
+.reel:hover { color: var(--blue); }
+.reel:focus-visible { outline: 4px solid var(--yellow); outline-offset: 6px; }
+.reel-win { position: absolute; inset: 0; overflow: hidden; display: block; }
+.arrow { position: absolute; top: 50%; margin-top: -12px; width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; }
+.arrow-l { left: 0; border-left: 14px solid var(--pink); }
+.arrow-r { right: 0; border-right: 14px solid var(--pink); }
+
+.cab-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; min-height: 44px; }
+.payline { display: flex; gap: 10px; }
+.hint { margin: 0; color: var(--bg); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+.lever { flex: none; width: clamp(34px, 5vw, 56px); position: relative; }
+.lever-rail { position: absolute; top: 8px; bottom: 8px; left: 50%; margin-left: -5px; width: 10px; border-radius: 5px; background: var(--blue); opacity: .35; }
+.lever-knob {
+  position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 1 / 1;
+  border-radius: 50%; background: var(--pink); border: 4px solid var(--bg);
+  box-shadow: 4px 4px 0 var(--blue);
+  touch-action: none; cursor: var(--cur-hand);
+}
+.lever-knob:hover { background: var(--yellow); }
+
+/* ---- coin door: tiny tab hanging under the cabinet ---- */
+.slot {
+  all: unset;
+  position: absolute; top: 100%; right: clamp(56px, 9vw, 110px); margin-top: 4px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 10px 6px;
+  background: var(--ink); color: var(--yellow);
+  font: 900 10px 'Libre Franklin', sans-serif; letter-spacing: .14em; text-transform: uppercase;
+  opacity: .75;
+  cursor: var(--cur-hand);
+  transition: opacity .2s, background-color .2s, color .2s;
+}
+.slot:hover { opacity: 1; }
+.slot:focus-visible { opacity: 1; outline: 3px solid var(--ink); outline-offset: 3px; }
+.slot-hole { display: block; width: 4px; height: 14px; border-radius: 2px; background: var(--pink); }
+/* lit once you can afford it */
+.slot.lit, .slot.eating { opacity: 1; background: var(--yellow); color: var(--ink); }
+.slot.lit .slot-hole, .slot.eating .slot-hole { background: var(--ink); }
+
+.slot[hidden] { display: none; }
+/* the 20-coin tab: same coin door, on the left */
+.unlock { right: auto; left: clamp(16px, 4vw, 40px); transform-origin: 50% 0; }
+
+/* old/new site switch: takes the unlock tab's place once it's paid for */
+.switch {
+  position: absolute; top: 100%; left: clamp(16px, 4vw, 40px); margin-top: 4px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 10px 6px;
+  background: var(--ink); color: var(--yellow);
+  font: 900 10px 'Libre Franklin', sans-serif; letter-spacing: .14em; text-transform: uppercase;
+  text-decoration: none;
+  cursor: var(--cur-hand);
+}
+.switch[hidden] { display: none; }
+.switch:hover { color: var(--yellow); background: var(--ink); }
+.switch:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.switch-track { position: relative; width: 30px; height: 16px; border-radius: 8px; background: var(--pink); }
+.switch-knob { position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--yellow); transition: left .2s; }
+.switch:hover .switch-knob, .switch.flipped .switch-knob { left: 16px; }
+
+/* phones: pull both tabs toward the corners so they don't overlap */
+@media (max-width: 480px) {
+  .slot:not(.unlock) { right: 12px; }
+  .unlock, .switch { left: 12px; }
+}
+
+.msg {
+  width: min(100% - 32px, 520px);
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 4px solid var(--ink);
+  background: var(--ink); color: var(--yellow);
+  box-shadow: 12px 12px 0 var(--pink);
+  font-family: 'Libre Franklin', sans-serif;
+}
+.msg::backdrop { background: rgba(13, 27, 30, .55); }
+.msg-in { display: flex; flex-direction: column; gap: 16px; padding: clamp(18px, 4vw, 28px); }
+.msg-pane { display: flex; flex-direction: column; gap: 16px; }
+.msg-pane[hidden] { display: none; }
+.msg-copy { margin: 0; color: var(--bg); font-weight: 600; font-size: 16px; line-height: 1.45; }
+.msg-copy b { color: var(--yellow); font-weight: 900; }
+.msg-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.msg h2 { margin: 0; color: var(--pink); font-weight: 900; font-size: clamp(22px, 4vw, 30px); }
+.msg-x {
+  all: unset; cursor: var(--cur-hand);
+  flex: none; width: 34px; height: 34px; display: grid; place-items: center;
+  font-size: 26px; line-height: 1; color: var(--yellow); border: 3px solid var(--yellow);
+}
+.msg-x:hover { color: var(--blue); border-color: var(--blue); }
+.msg-x:focus-visible { outline: 4px solid var(--blue); outline-offset: 3px; }
+.msg label {
+  display: flex; flex-direction: column; gap: 6px;
+  font-weight: 800; font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+}
+.msg label small { color: var(--bg); font-weight: 600; letter-spacing: .02em; text-transform: none; }
+.msg input, .msg textarea {
+  font: 600 16px/1.4 'Libre Franklin', sans-serif; /* 16px stops iOS zooming in */
+  color: var(--ink); background: #FFFDF7;
+  border: 3px solid var(--yellow); border-radius: 0;
+  padding: 10px 12px; width: 100%;
+}
+.msg textarea { resize: vertical; min-height: 120px; }
+.msg input:focus-visible, .msg textarea:focus-visible { outline: 4px solid var(--blue); outline-offset: 2px; }
+.msg-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.msg-status { flex: 1; margin: 0; color: var(--bg); font-weight: 700; font-size: 14px; }
+.msg-send {
+  all: unset; cursor: var(--cur-hand);
+  font-weight: 900; font-size: 15px; letter-spacing: .12em; text-transform: uppercase;
+  background: var(--yellow); color: var(--ink);
+  padding: 12px 20px; box-shadow: 4px 4px 0 var(--pink);
+}
+.msg-send:hover { background: var(--blue); }
+.msg-send:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--pink); }
+.msg-send:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
+.msg-send:disabled { opacity: .6; cursor: wait; }
+
+/* ---- overlay layers: floating tiles + effects ---- */
+.layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+.layer-floats { z-index: 40; }
+.layer-fx { z-index: 50; }
+.floater {
+  position: absolute; left: 0; top: 0;
+  pointer-events: auto; touch-action: manipulation;
+  cursor: var(--cur-hand); will-change: transform;
+}

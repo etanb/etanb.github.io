@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etan Berkowitz</title>
+<meta name="description" content="Etan Berkowitz. Catch the floaty things, pull the lever, find out what I'm into.">
+<meta name="theme-color" content="#0D1B1E">
+<link rel="canonical" href="https://allberknobite.com/">
+<!-- icons: .ico for old browsers and crawlers, SVG for everything modern, PNG for iPhone home screens -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- link previews (Slack, iMessage, X, LinkedIn, etc.). og:image has to be an absolute URL. -->
+<meta property="og:title" content="Etan Berkowitz">
+<meta property="og:description" content="Catch the floaty things, pull the lever, find out what I'm into.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://allberknobite.com/">
+<meta property="og:image" content="https://allberknobite.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Etan Berkowitz's arcade-style site: a slot reel reading 'Things I'm into: your mom'">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400..900;1,400..900&display=swap">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<main id="root">
+  <header class="bar">
+    <div id="bulbs" class="bulbs" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="ticker" aria-hidden="true">
+      <div id="tick" class="ticker-track">
+        <span>✦ odds are excellent ✦ insert no coins ✦ catch the floaty things ✦ pull the lever ✦ every 5 says something ✦ messages cost 10 coins</span>
+        <span>✦ odds are excellent ✦ insert no coins ✦ catch the floaty things ✦ pull the lever ✦ every 5 says something ✦ messages cost 10 coins</span>
+      </div>
+    </div>
+    <div class="coins">
+      <span aria-hidden="true">coins</span>
+      <span id="coin" class="coin-box">
+        <span id="coin-num" aria-hidden="true">000</span>
+        <span id="coin-sr" class="sr-only">0 coins</span>
+      </span>
+    </div>
+  </header>
+
+  <div class="stage">
+    <div class="stack">
+      <!-- the real heading is plain text; the drawn name below is decoration (its SVG text would read as "EEEttt..." to search engines) -->
+      <h1 class="sr-only">Etan Berkowitz</h1>
+      <div class="name">
+        <button id="name-btn" class="name-btn" type="button" aria-label="Replay the drawing of my name">
+          <span id="name-host" class="name-host"></span>
+        </button>
+      </div>
+
+      <section id="cab" class="cabinet">
+        <div class="cab-main">
+          <p class="into">Things I'm into:</p>
+          <button id="reel-btn" class="reel" type="button">
+            <span id="reel-win" class="reel-win" aria-hidden="true"></span>
+            <span class="arrow arrow-l" aria-hidden="true"></span>
+            <span class="arrow arrow-r" aria-hidden="true"></span>
+            <span id="reel-sr" class="sr-only">Spin for another thing.</span>
+          </button>
+          <div class="cab-foot">
+            <div id="pay" class="payline" aria-hidden="true"></div>
+            <p class="hint" aria-hidden="true">pull · tap the reel · press →</p>
+          </div>
+        </div>
+        <div id="track" class="lever" aria-hidden="true">
+          <div class="lever-rail"></div>
+          <div id="knob" class="lever-knob"></div>
+        </div>
+        <!-- coin door: the (deliberately tiny) way to send a message -->
+        <button id="slot" class="slot" type="button" aria-haspopup="dialog">
+          <span class="slot-hole" aria-hidden="true"></span>
+          <span aria-hidden="true">message · 10 coins</span>
+          <span class="sr-only">Leave a message (costs 10 coins)</span>
+        </button>
+        <!-- folds down once you've caught 20 coins; feed it 20 to unlock the switch below -->
+        <button id="unlock" class="slot unlock" type="button" hidden>
+          <span class="slot-hole" aria-hidden="true"></span>
+          <span aria-hidden="true">??? · 20 coins</span>
+          <span class="sr-only">Unlock something (costs 20 coins)</span>
+        </button>
+        <!-- bought with 20 coins: flip to the old site, archived in old/ -->
+        <a id="site-switch" class="switch" href="old/" hidden>
+          <span aria-hidden="true">new</span>
+          <span class="switch-track" aria-hidden="true"><span class="switch-knob"></span></span>
+          <span aria-hidden="true">old</span>
+          <span class="sr-only">Switch to my old site</span>
+        </a>
+      </section>
+    </div>
+  </div>
+
+  <!-- Contact form: posts to Web3Forms, which forwards to Etan's inbox. The access key is public by design. -->
+  <dialog id="msg" class="msg" aria-labelledby="msg-title">
+    <div class="msg-in">
+      <div class="msg-head">
+        <h2 id="msg-title">Leave a message</h2>
+        <button id="msg-close" class="msg-x" type="button" aria-label="Close">×</button>
+      </div>
+
+      <!-- shown when you can't afford it -->
+      <div id="msg-broke" class="msg-pane" hidden>
+        <p class="msg-copy">Messages cost <b>10 coins</b>. You have <b id="msg-have">0</b>.</p>
+        <p class="msg-copy">Go catch the floaty things.</p>
+        <div class="msg-foot">
+          <span></span>
+          <button id="msg-later" class="msg-send" type="button">Go catch some</button>
+        </div>
+      </div>
+
+      <form id="msg-form" class="msg-pane" action="https://api.web3forms.com/submit" method="POST" hidden>
+        <input type="hidden" name="access_key" value="7b1c0dff-2af0-44f3-903c-451a0bfb63b3">
+        <input type="hidden" name="subject" value="New message from your website">
+        <input type="hidden" name="from_name" value="Arcade Floor">
+        <!-- honeypot: hidden from people, bots tick it, Web3Forms drops the submission -->
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+        <label><span>Name <small>(optional)</small></span>
+          <input type="text" name="name" autocomplete="name" maxlength="100">
+        </label>
+        <label><span>Email <small>(optional, if you want a reply)</small></span>
+          <input type="email" name="email" autocomplete="email" maxlength="200">
+        </label>
+        <label><span>Message</span>
+          <textarea name="message" rows="5" maxlength="5000" required></textarea>
+        </label>
+        <div class="msg-foot">
+          <p id="msg-status" class="msg-status" role="status"></p>
+          <button class="msg-send" type="submit">Insert 10 coins &amp; send</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <p id="live" class="sr-only" aria-live="polite"></p>
+  <div id="floats" class="layer layer-floats" aria-hidden="true"></div>
+  <div id="fx" class="layer layer-fx" aria-hidden="true"></div>
+</main>
+</body>
+</html>
