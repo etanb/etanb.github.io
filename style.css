@@ -10,6 +10,14 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; background: var(--bg); color: var(--ink); }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; } /* no iOS text inflation in landscape */
+
+/* touch: no gray tap flashes, and long-pressing the game bits doesn't start a text selection or pop the copy/look-up menu */
+#root { -webkit-tap-highlight-color: transparent; }
+.bar, .name-btn, .cabinet, .floater, .slot, .switch {
+  -webkit-user-select: none; user-select: none;
+  -webkit-touch-callout: none;
+}
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; margin: -1px;
@@ -31,7 +39,10 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
   font-family: 'Libre Franklin', sans-serif;
   color: var(--ink);
   cursor: var(--cur-arrow);
+  touch-action: manipulation; /* no double-tap zoom when tapping the reel fast */
 }
+
+/* hover styles only apply on devices that really hover; on phones a tap leaves :hover stuck on */
 
 /* ---- header: chase bulbs, ticker, coin counter ---- */
 .bar {
@@ -92,7 +103,7 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
   transform: rotate(-1deg);
 }
 .cab-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: clamp(10px, 2vh, 16px); }
-.into { margin: 0; color: var(--pink); font-weight: 800; font-size: clamp(18px, 2.6vw, 28px); letter-spacing: .01em; }
+.into { margin: 0; color: var(--pink); font-weight: 900; font-size: clamp(24px, 3.6vw, 40px); line-height: 1.05; letter-spacing: -.005em; }
 
 .reel {
   all: unset;
@@ -103,7 +114,7 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
   cursor: var(--cur-hand);
   transition: color .15s;
 }
-.reel:hover { color: var(--blue); }
+@media (hover: hover) { .reel:hover { color: var(--blue); } }
 .reel:focus-visible { outline: 4px solid var(--yellow); outline-offset: 6px; }
 .reel-win { position: absolute; inset: 0; overflow: hidden; display: block; }
 .arrow { position: absolute; top: 50%; margin-top: -12px; width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; }
@@ -112,6 +123,8 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
 
 .cab-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; min-height: 44px; }
 .payline { display: flex; gap: 10px; }
+.hint-touch { display: none; }
+@media (hover: none) { .hint-mouse { display: none; } .hint-touch { display: inline; } }
 .hint { margin: 0; color: var(--bg); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 
 .lever { flex: none; width: clamp(34px, 5vw, 56px); position: relative; }
@@ -122,7 +135,7 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
   box-shadow: 4px 4px 0 var(--blue);
   touch-action: none; cursor: var(--cur-hand);
 }
-.lever-knob:hover { background: var(--yellow); }
+@media (hover: hover) { .lever-knob:hover { background: var(--yellow); } }
 
 /* ---- coin door: tiny tab hanging under the cabinet ---- */
 .slot {
@@ -136,7 +149,7 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
   cursor: var(--cur-hand);
   transition: opacity .2s, background-color .2s, color .2s;
 }
-.slot:hover { opacity: 1; }
+@media (hover: hover) { .slot:hover { opacity: 1; } }
 .slot:focus-visible { opacity: 1; outline: 3px solid var(--ink); outline-offset: 3px; }
 .slot-hole { display: block; width: 4px; height: 14px; border-radius: 2px; background: var(--pink); }
 /* lit once you can afford it */
@@ -162,12 +175,14 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
 .switch:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .switch-track { position: relative; width: 30px; height: 16px; border-radius: 8px; background: var(--pink); }
 .switch-knob { position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--yellow); transition: left .2s; }
-.switch:hover .switch-knob, .switch.flipped .switch-knob { left: 16px; }
+.switch.flipped .switch-knob { left: 16px; }
+@media (hover: hover) { .switch:hover .switch-knob { left: 16px; } }
 
 /* phones: pull both tabs toward the corners so they don't overlap */
 @media (max-width: 480px) {
   .slot:not(.unlock) { right: 12px; }
   .unlock, .switch { left: 12px; }
+  .bulbs { display: none; } /* give the ticker room */
 }
 
 .msg {
@@ -192,7 +207,7 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
   flex: none; width: 34px; height: 34px; display: grid; place-items: center;
   font-size: 26px; line-height: 1; color: var(--yellow); border: 3px solid var(--yellow);
 }
-.msg-x:hover { color: var(--blue); border-color: var(--blue); }
+@media (hover: hover) { .msg-x:hover { color: var(--blue); border-color: var(--blue); } }
 .msg-x:focus-visible { outline: 4px solid var(--blue); outline-offset: 3px; }
 .msg label {
   display: flex; flex-direction: column; gap: 6px;
@@ -215,7 +230,7 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
   background: var(--yellow); color: var(--ink);
   padding: 12px 20px; box-shadow: 4px 4px 0 var(--pink);
 }
-.msg-send:hover { background: var(--blue); }
+@media (hover: hover) { .msg-send:hover { background: var(--blue); } }
 .msg-send:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--pink); }
 .msg-send:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 .msg-send:disabled { opacity: .6; cursor: wait; }
@@ -223,6 +238,19 @@ html, body { margin: 0; background: var(--bg); color: var(--ink); }
 /* ---- overlay layers: floating tiles + effects ---- */
 .layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
 .layer-floats { z-index: 40; }
+/* phones: tiles drift behind the cabinet and name instead of over them, so they never cover the reel.
+   The stage lets taps fall through its empty space to the tiles underneath. */
+@media (max-width: 599px) {
+  .layer-floats { z-index: 1; }
+  .stage, .stack { pointer-events: none; }
+  .cabinet { pointer-events: auto; }
+  /* only the letters of the name catch taps; the gaps between them fall through to tiles */
+  .name-host svg g { pointer-events: auto; }
+  /* roomier: no payline tiles, and a smaller name so there's more open space to catch tiles in */
+  .payline { display: none; }
+  .cab-foot { min-height: 0; }
+  .name { width: min(80%, 56vh); }
+}
 .layer-fx { z-index: 50; }
 .floater {
   position: absolute; left: 0; top: 0;

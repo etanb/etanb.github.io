@@ -225,9 +225,14 @@ async function mountName(host) {
         lead: 1.02,
         dash: 1600,
     };
-    try {
-        await document.fonts.load(`${o.weight} ${o.size}px "Libre Franklin"`);
-    } catch (e) {}
+    // Wait for Libre Franklin, but not forever: on a slow phone connection, draw with the fallback font
+    // after 1.5s and redraw once the real font shows up.
+    const spec = `${o.weight} ${o.size}px "Libre Franklin"`;
+    const fontLoad = document.fonts.load(spec).catch(() => {});
+    const inTime = await Promise.race([
+        fontLoad.then(() => true),
+        new Promise((r) => setTimeout(r, 1500, false)),
+    ]);
     const NS = 'http://www.w3.org/2000/svg';
     const el = (t) => document.createElementNS(NS, t);
     const svg = el('svg');
@@ -383,7 +388,12 @@ async function mountName(host) {
         });
     }
     draw();
-    return { draw };
+    const api = { draw };
+    if (!inTime)
+        fontLoad.then(() => {
+            if (document.fonts.check(spec)) mountName(host).then((n) => (api.draw = n.draw));
+        });
+    return api;
 }
 
 // ---------- slot reel ----------
@@ -397,6 +407,7 @@ function split2(w) {
         );
     return [w.slice(0, at), w.slice(at + 1)];
 }
+const REEL_SCALE = 0.86; // reel words a tad smaller than "fill the window"
 function fitSize(w, W, H, pad) {
     const cw = 0.58,
         avail = Math.max(80, W - pad * 2);
@@ -407,9 +418,10 @@ function fitSize(w, W, H, pad) {
             H * 0.38,
             avail / (Math.max(s[0].length, s[1].length) * cw),
         );
-        if (two > one * 1.15) return { fs: Math.floor(two), lines: s };
+        if (two > one * 1.15)
+            return { fs: Math.floor(two * REEL_SCALE), lines: s };
     }
-    return { fs: Math.floor(one), lines: [w] };
+    return { fs: Math.floor(one * REEL_SCALE), lines: [w] };
 }
 
 // spin(to) rolls to words[to]; the blurry filler only uses the first `fill` words.
@@ -588,7 +600,8 @@ function chase(bulbs) {
 }
 
 // ---------- collectible floaters: bounce like a screensaver; tap one and it flies into the coin box ----------
-function floaters(layer, { count, size, make, target, onHit, onCollect }) {
+// `fly` is the layer a caught tile moves into for its trip to the coin box (so it stays on top).
+function floaters(layer, { count, size, speed = 1, fly, make, target, onHit, onCollect }) {
     const items = [];
     let last = performance.now();
     const place = (f) => {
@@ -602,7 +615,7 @@ function floaters(layer, { count, size, make, target, onHit, onCollect }) {
         w.appendChild(node);
         layer.appendChild(w);
         const a = rnd(0, 6.28),
-            v = rnd(0.6, 1);
+            v = rnd(0.6, 1) * speed;
         const f = {
             w,
             s,
@@ -653,6 +666,7 @@ function floaters(layer, { count, size, make, target, onHit, onCollect }) {
                 ty = tr.top + tr.height / 2 - lr.top - f.s / 2,
                 from = f.w.style.transform;
             f.w.style.zIndex = 5;
+            if (fly) fly.appendChild(f.w);
             f.w.animate(
                 [
                     { transform: from },
@@ -859,9 +873,13 @@ function jackpot() {
         );
 }
 
+// Phones get fewer, smaller, slower tiles (and they drift behind the cabinet, see style.css).
+const phone = innerWidth < 600;
 floaters($('floats'), {
-    count: FLOATERS,
-    size: () => (innerWidth < 600 ? 50 : 60),
+    count: phone ? 4 : FLOATERS,
+    size: () => (innerWidth < 600 ? 44 : 60),
+    speed: phone ? 0.7 : 1,
+    fly: fx,
     make: (n, s) => tile(ICONS[n % 4], { ...TILE_SCHEMES[n % 4], size: s }),
     target: coinBox,
     onHit: (pt) =>
@@ -885,7 +903,10 @@ document.fonts.ready.then(ticker);
 motion.addEventListener('change', ticker);
 
 reelBtn.addEventListener('click', () => pull(1));
-reelBtn.addEventListener('pointerenter', theReel.tease);
+// hover jiggle is for mice only; on touch it fired on every tap alongside the spin
+reelBtn.addEventListener('pointerenter', (e) => {
+    if (e.pointerType === 'mouse') theReel.tease();
+});
 
 // ← / → spin from anywhere (except while typing or with the message dialog open).
 addEventListener('keydown', (e) => {
@@ -1029,10 +1050,15 @@ slot.addEventListener('click', () => {
     dlg.showModal();
     coins >= COST ? showForm() : showBroke();
 });
-$('msg-close').addEventListener('click', () => dlg.close());
-$('msg-later').addEventListener('click', () => dlg.close());
+// Drop keyboard focus before closing, so phones put the keyboard away with the dialog.
+function closeDialog() {
+    if (dlg.contains(document.activeElement)) document.activeElement.blur();
+    dlg.close();
+}
+$('msg-close').addEventListener('click', () => closeDialog());
+$('msg-later').addEventListener('click', () => closeDialog());
 dlg.addEventListener('click', (e) => {
-    if (e.target === dlg) dlg.close();
+    if (e.target === dlg) closeDialog();
 }); // click the backdrop to close
 
 form.addEventListener('submit', async (e) => {
@@ -1054,8 +1080,8 @@ form.addEventListener('submit', async (e) => {
         });
         const out = await res.json();
         if (!out.success) throw new Error(out.message);
+        closeDialog();
         form.reset();
-        dlg.close();
         $('live').textContent = `Message sent. Thanks! That was ${COST} coins.`;
         spendCoins(COST, slot).then(() => popAt(slot, 'sent! ty!!'));
     } catch (err) {
